@@ -1,3 +1,5 @@
+$green-uts: #bdd530;
+
 ul.sidenav.sidenav-fixed {
   overflow: hidden;
   -webkit-box-shadow: none;
@@ -22,7 +24,7 @@ nav.top-nav h1.header {
   padding-top: 22px;
 }
 .header {
-  color: #ee6e73;
+  color: $green-uts;
   font-weight: 300;
 }
 h1 {
@@ -39,6 +41,9 @@ ul li.profile {
     height: 80px;
     object-fit: cover;
     border-radius: 50%;
+  }
+  p {
+    font-weight: bold;
   }
   p, small {
     padding-left: 10px;
@@ -88,7 +93,7 @@ a.sidenav-trigger.top-nav {
   top: 28px;
   float: none;
   margin-left: 1.5rem;
-  color: #f3989b;
+  color: $green-uts;
   font-size: 36px;
   z-index: 2;
 }
