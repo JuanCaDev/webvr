@@ -1,3 +1,30 @@
-<p>
-  navbar works!
-</p>
+<header>
+  <nav class="top-nav">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="row">
+          <div class="col s12 m10 offset-m1">
+            <h1 class="header">Estudiantes</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger hide-on-large-only">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
+</header>
+
+<ul class="sidenav sidenav-fixed" id="nav-mobile" style="transform: translateX(0%);">
+  <li class="profile">
+    <img src="https://images.unsplash.com/photo-1525540810550-5032f5d191b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80" alt="Foto de perfil">
+    <div class="text">
+      <p>Juan Felizzola</p>
+      <small>Docente: español</small>
+    </div>
+  </li>
+  <li><a routerLink="/">Estudiantes</a></li>
+  <li><a routerLink="/profile">Mi perfil</a></li>
+</ul>
