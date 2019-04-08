@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <!-- <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script> -->
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 </head>
 <body>
-  <h1>hola</h1>
+  <a-scene>
+    <a-plane id="level1" color="#7BC8A4" width="3" height="1" depth="0.001"
+      position="0 1.5 -2.5"
+      text="align: center; value: Nivel 1; width: 10"
+      animation="property: position; from: 0 1.5 -2.5; to: 0 -1.5 -2.5; dur: 2000; delay: 1000">
+    </a-plane>
+    <a-plane color="#7BC8A4" width="3" height="1" depth="0.001"
+      position="0 2.5 -2.5">
+      <a-text value="El balón es de color verde" align="center"></a-tex>
+    </a-plane>
+  </a-scene>
 </body>
 </html>
