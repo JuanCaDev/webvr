@@ -1,0 +1,24 @@
+<div class="img"></div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Iniciar sesión</span>
+      <form (submit)="loginUser()">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+    </div>
+  </div>
+</div>

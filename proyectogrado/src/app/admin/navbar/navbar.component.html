@@ -1,0 +1,12 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo left">
+      <img src="https://images.unsplash.com/photo-1525540810550-5032f5d191b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80" alt="WebVR">
+      <span>Web VR</span>
+    </a>
+    <ul class="right">
+      <li *ngIf="expression"><a routerLink="">Cerrar sesión</a></li>
+      <li><a (click)="logout()">Cerrar sesión</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,28 @@
+$green-uts: #009688;
+nav {
+  background: white;
+}
+img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  line-height: 50%;
+  margin-top: 8px;
+  margin-left: 15px;
+  border-radius: 50%;
+}
+a, span {
+  color: $green-uts;
+}
+span {
+  font-size: 1.5rem;
+  vertical-align: top;
+  margin-left: 10px;
+}
+@media (max-width: 600px) {
+  img {
+    width: 42px;
+    height: 42px;
+    margin-left: 0;
+  }
+}

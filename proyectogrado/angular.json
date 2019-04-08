@@ -28,10 +28,12 @@
             ],
             "styles": [
               "src/styles.scss",
-              "./node_modules/materialize-css/dist/css/materialize.css"
+              "./node_modules/materialize-css/dist/css/materialize.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [
-              "./node_modules/materialize-css/dist/js/materialize.js"
+              "./node_modules/materialize-css/dist/js/materialize.js",
+              "./src/app/aframe/js/forest.js"
             ],
             "es5BrowserSupport": true
           },
@@ -93,18 +95,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }

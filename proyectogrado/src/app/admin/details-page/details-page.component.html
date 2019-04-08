@@ -1,0 +1,45 @@
+<div class="row" *ngIf="student">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <h4>{{ student.name }}</h4>
+        <p><strong>ID: </strong>{{ student.identity }}</p>
+        <p><strong>Nivel actual: </strong>{{ student.currentLevel }}</p>
+        <ul class="collapsible">
+          <li *ngFor="let level of student.levels">
+            <div class="collapsible-header"><i class="material-icons">star</i>Nivel {{ index }}</div>
+            <div class="collapsible-body"><span>
+              <table class="highlight">
+                <thead>
+                  <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  <tr>
+                    <td>{{ level.homework1 }}</td>
+                    <td>{{ level.homework2 }}</td>
+                    <td>{{ level.homework3 }}</td>
+                    <td>{{ level.homework4 }}</td>
+                    <td>{{ level.homework5 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </span></div>
+          </li>
+        </ul>
+        
+        
+      </div>
+      <div class="card-action">
+        <a><strong>Porcentaje: </strong>{{ student.average }}</a>
+        <a><i class="far fa-edit"></i> <i class="far fa-trash-alt" (click)="deleteStudent(student.id)"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

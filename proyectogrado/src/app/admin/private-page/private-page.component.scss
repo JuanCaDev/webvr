@@ -1,0 +1,27 @@
+@media only screen and (min-width: 993px) {
+  main .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  main .container {
+    width: 90%;
+  }
+}
+
+h5 {
+  display: inline;
+}
+
+.container {
+  margin-top: 10px;
+}
+
+.far.fa-edit {
+  color: green;
+  margin-right: 10px;
+}
+.far.fa-trash-alt {
+  color: lightcoral;
+}
