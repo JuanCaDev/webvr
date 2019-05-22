@@ -1,7 +1,32 @@
 <a-scene>
-  <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-  <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-  <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-  <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-  <a-sky color="#ECECEC"></a-sky>
+  <a-assets>
+    <a-asset-item id="farm-obj" src="./assets/obj-model/level2/farm.obj"></a-asset-item>
+    <a-asset-item id="farm-mtl" src="./assets/obj-model/level2/farm.mtl"></a-asset-item>
+  </a-assets>
+  
+  <a-entity>
+    <a-entity obj-model="obj: #farm-obj; mtl: #farm-mtl"></a-entity>
+  </a-entity>
+  
+  <!-- Camara -->
+  <a-entity animation="property: position; from: 0 15 60; to: 2 1.2 4; dur: 5000">
+    <a-entity camera look-controls wasd-controls>
+      <a-cursor id="cursor"></a-cursor>
+    </a-entity>
+  </a-entity>
+  <!-- <a-entity camera look-controls wasd-controls position="0 1.8 0">
+    <a-cursor id="cursor"></a-cursor>
+  </a-entity> -->
+
+  <!-- Text nivel 2 -->
+  <a-plane id="level1" color="#7BC8A4" width="3" height="1" depth="0.001"
+      position="2 1.5 1.5"
+      text="align: center; value: Nivel 2; width: 10"
+      animation="property: position; from: 2 1.5 1.5; to: 2 -1.5 1.5; dur: 2000; delay: 9000">
+  </a-plane>
+
+  <a-entity id="question"></a-entity>
+  
+  <!-- Forest -->
+  <a-entity environment="preset: forest; skyType: gradient; lighting: point"></a-entity>
 </a-scene>

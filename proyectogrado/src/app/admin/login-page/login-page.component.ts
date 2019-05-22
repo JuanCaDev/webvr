@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+import M from 'node_modules/materialize-css';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',

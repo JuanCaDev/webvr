@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-level1',
@@ -26,7 +27,8 @@ export class Level1Component implements OnInit {
   constructor(
     private authService: AuthService,
     private db: AngularFirestore,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private route: Router) {
     }
 
   ngOnInit() {
@@ -38,6 +40,23 @@ export class Level1Component implements OnInit {
         console.log('Usuario logueado');
         console.log(user);
         this.studentId = user.uid;
+        // Comprobar que es estudiante
+        this.dataService.getOneStudent(this.studentId).subscribe(
+          (data: any) => {
+            if (data) {
+              console.log(data);
+              console.log('Es un estudiante');
+            } else {
+              this.authService.logout();
+              this.route.navigate(['/login']);
+            }
+          },
+          error => {
+            this.authService.logout();
+            this.route.navigate(['/login']);
+          }
+        );
+
         this.startLevel1();
         this.audioMusic.play();
         this.audioMusic.volumne = 0.6;
@@ -55,7 +74,7 @@ export class Level1Component implements OnInit {
   }
 
   startLevel1() {
-    this.dataService.getOneStudent(this.studentId).subscribe(user => {
+    this.dataService.getOneStudent(this.studentId).subscribe((user: any) => {
       console.log(user.levels.level1.homework1 === undefined);
       this.car.addEventListener('click', () => {
         if (user.levels.level1.homework1 === undefined) {

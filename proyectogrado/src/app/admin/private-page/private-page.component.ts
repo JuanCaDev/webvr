@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { TeacherInterface } from 'src/app/models/teacher';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-private-page',
@@ -16,21 +17,40 @@ export class PrivatePageComponent implements OnInit {
   password: string;
   teachers: Array<TeacherInterface>;
 
+  teacherId: string;
+
   constructor(
     private authService: AuthService,
     private db: AngularFirestore,
-    public dataService: DataService) { }
+    public dataService: DataService,
+    private route: Router) { }
 
   ngOnInit() {
-    this.getAllTeachers();
     this.authService.isAuth().onAuthStateChanged(user => {
-      console.log(user);
-      console.log('Tipo uid: ', typeof user.uid);
+      if (user) {
+        this.teacherId = user.uid;
+        this.dataService.getOneTeacher(this.teacherId).subscribe(
+          (data: any) => {
+            if (data) {
+              this.authService.logout();
+              this.route.navigate(['/login']);
+            } else {
+              console.log('Es un admin');
+            }
+          },
+          error => {
+            this.authService.logout();
+            this.route.navigate(['/login']);
+          }
+        );
+        console.log(user);
+        this.getAllTeachers();
+      }
     });
   }
 
   getAllTeachers() {
-    this.dataService.getAllTeachers().subscribe(data => {
+    this.dataService.getAllTeachers().subscribe((data: any) => {
       this.teachers = data;
     });
   }

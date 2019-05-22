@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 import { StudentInterface } from 'src/app/models/student';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -22,17 +23,33 @@ export class HomePageComponent implements OnInit {
   teacherId: string;
   studentsInTeacher: string[] = [];
 
-  students: Array<StudentInterface>;
+  students: StudentInterface[];
 
   constructor(
     private authService: AuthService,
     private dataService: DataService,
-    private db: AngularFirestore) { }
+    private db: AngularFirestore,
+    private route: Router) { }
 
   ngOnInit() {
-    this.authService.isAuth().onAuthStateChanged(user => {
+    this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
         this.teacherId = user.uid;
+        this.dataService.getOneTeacher(this.teacherId).subscribe(
+          (data: any) => {
+            console.log(data);
+            if (!data) {
+              this.authService.logout();
+              this.route.navigate(['/login']);
+            } else {
+              console.log('Es un profesor');
+            }
+          },
+          error => {
+            this.authService.logout();
+            this.route.navigate(['/login']);
+          }
+        );
         console.log(user);
         this.getStudents(this.teacherId);
       }
@@ -80,7 +97,7 @@ export class HomePageComponent implements OnInit {
 
   getStudents(teacherId: string) {
     this.db.collection('students', ref => ref.where('teacher', '==', teacherId)).valueChanges()
-      .subscribe(data => {
+      .subscribe((data: any) => {
         this.students = data;
       });
   }

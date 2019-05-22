@@ -1,3 +1,38 @@
-<p>
-  level3 works!
-</p>
+<a-scene>
+  <a-assets>
+    <a-asset-item id="zoo-obj" src="./assets/obj-model/level3/zoo-3-zoo.obj"></a-asset-item>
+    <a-asset-item id="zoo-mtl" src="./assets/obj-model/level3/zoo-3-zoo.mtl"></a-asset-item>
+    <a-asset-item id="giraffe1-obj" src="./assets/obj-model/level3/zoo-1-giraffe1.obj"></a-asset-item>
+    <a-asset-item id="giraffe1-mtl" src="./assets/obj-model/level3/zoo-1-giraffe1.mtl"></a-asset-item>
+    <a-asset-item id="giraffe2-obj" src="./assets/obj-model/level3/zoo-0-giraffe2.obj"></a-asset-item>
+    <a-asset-item id="giraffe2-mtl" src="./assets/obj-model/level3/zoo-0-giraffe2.mtl"></a-asset-item>
+  </a-assets>
+  
+  <a-entity>
+    <a-entity obj-model="obj: #zoo-obj; mtl: #zoo-mtl"></a-entity>
+    <a-entity obj-model="obj: #giraffe1-obj; mtl: #giraffe1-mtl"></a-entity>
+    <a-entity obj-model="obj: #giraffe2-obj; mtl: #giraffe2-mtl"></a-entity>
+  </a-entity>
+  
+  <!-- Camara -->
+  <a-entity animation="property: position; from: 0 15 60; to: 0 1.2 4; dur: 5000">
+    <a-entity camera look-controls wasd-controls>
+      <a-cursor id="cursor"></a-cursor>
+    </a-entity>
+  </a-entity>
+  <!-- <a-entity camera look-controls wasd-controls position="0 1.8 0">
+    <a-cursor id="cursor"></a-cursor>
+  </a-entity> -->
+
+  <!-- Text nivel 3 -->
+  <a-plane id="level1" color="#7BC8A4" width="3" height="1" depth="0.001"
+      position="0 1.5 1"
+      text="align: center; value: Nivel 3; width: 10"
+      animation="property: position; from: 0 1.5 1; to: 0 -1.5 1; dur: 2000; delay: 9000">
+  </a-plane>
+
+  <a-entity id="question"></a-entity>
+  
+  <!-- Forest -->
+  <a-entity environment="preset: forest; skyType: gradient; lighting: point"></a-entity>
+</a-scene>

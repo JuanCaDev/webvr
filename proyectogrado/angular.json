@@ -33,6 +33,7 @@
             ],
             "scripts": [
               "./node_modules/materialize-css/dist/js/materialize.js",
+              "./node_modules/materialize-css/dist/js/materialize.js",
               "./src/app/aframe/js/forest.js"
             ],
             "es5BrowserSupport": true

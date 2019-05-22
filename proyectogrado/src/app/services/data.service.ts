@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { StudentInterface } from '../models/student';
 
+import * as M from 'materialize-css';
+
 @Injectable({
   providedIn: 'root'
 })
