@@ -32,6 +32,11 @@ export class DataService {
     return this.db.collection('teachers').doc(uid).delete();
   }
 
+  // Student
+  getOneStudent(uid: string) {
+    return this.db.collection('students').doc(uid).valueChanges();
+  }
+
   // -----------
 
   // Users
@@ -54,9 +59,7 @@ export class DataService {
   //   return this.db.collection('students').valueChanges();
   // }
 
-  // getOneStudent(uid: string) {
-  //   return this.db.collection('students').doc(uid).valueChanges();
-  // }
+  
 
   // addStudent(student: Student) {
   //   return this.db.collection('students').doc(student.uid).set(student);

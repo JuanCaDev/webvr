@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./private-page.component.scss']
 })
 export class PrivatePageComponent implements OnInit {
-  userUid: string;
   teachersUid: string[];
   teachers: Teacher[] = [];
   teacherSelected: Teacher;
@@ -21,7 +20,8 @@ export class PrivatePageComponent implements OnInit {
     private authService: AuthService,
     private db: AngularFirestore,
     public dataService: DataService,
-    private route: Router) { }
+    private route: Router
+  ) { }
 
   ngOnInit() {
     this.authService.isAuth().onAuthStateChanged((user: any) => {
@@ -55,5 +55,4 @@ export class PrivatePageComponent implements OnInit {
     this.teacherSelected = teacher;
     console.log(this.teacherSelected);
   }
-
 }

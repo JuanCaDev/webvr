@@ -12,92 +12,47 @@ import { Teacher } from 'src/app/models/teacher';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  name: string;
-  email: string;
-  uid: string;
-  teacher: string;
-  password: string;
-  currentLevel = 1;
-  average = 0;
-  levels = { level1: {}, level2: {}, level3: {}};
-
-  teacherId: string;
-  studentsInTeacher: string[] = [];
-
-  students: Student[];
-
-  isCoordinador: any = null;
-  userUid: string = null;
-
-  teachers: Teacher[];
+  studentsUid: string[];
+  students: Teacher[] = [];
+  studentSelected: Teacher;
 
   constructor(
     private authService: AuthService,
     private dataService: DataService,
     private db: AngularFirestore,
-    private route: Router) { }
+    private route: Router
+  ) { }
 
   ngOnInit() {
     this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
         console.log(user);
-        this.db.collection('coordinators').doc(user.uid).get().subscribe(
-          (doc) => this.teachers = doc.data().teachers,
+        this.db.collection('teachers').doc(user.uid).get().subscribe(
+          (doc) => {
+            this.studentsUid = doc.data().students;
+            this.getStudents();
+            console.log(this.studentsUid);
+          },
           error => console.log('Error al buscar Coordinador')
         );
       }
     });
   }
 
-  addStudentInTeacher() {
-    this.db.collection('teachers').get().subscribe(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // Agregando estudiates a nuevo array
-        this.studentsInTeacher = doc.data().students;
-      });
-
-      // Agregando nuevo estudiante al profesor
-      this.db.collection('teachers').doc(this.teacherId).set({
-        students: [...this.studentsInTeacher, this.uid]
-      }, { merge: true })
-        .then(() => {
-          // Registro estudiante por correo
-          this.authService.registerUser(this.email, this.password).then(
-            (data: any) => {
-              const student = {
-                name: this.name,
-                email: this.email,
-                uid: data.user.uid,
-                id: this.uid,
-                teacher: this.teacherId,
-                currentLevel: this.currentLevel,
-                average: this.average,
-                levels: this.levels
-              };
-
-              // Agrego estudiante a collección
-              // this.dataService.addStudent(student);
-              alert('Estudiante creado correctamente');
-            },
-            error => {
-              alert('Error al agregar estudiante');
-              console.log('Error', error);
-            }
-          );
-        });
+  getStudents() {
+    this.studentsUid.forEach(student => {
+      this.dataService.getOneStudent(student).subscribe(
+        (data: any) => {
+          this.students.push(data);
+          console.log(this.students);
+        },
+        error => console.log('Error al traer profesores')
+      );
     });
   }
 
-  getStudents(teacherId: string) {
-    this.db.collection('students', ref => ref.where('teacher', '==', teacherId)).valueChanges()
-      .subscribe((data: any) => {
-        this.students = data;
-      });
+  selectStudent(student: Student) {
+    this.studentSelected = student;
+    console.log(this.studentSelected);
   }
-
-  // getAllStudents() {
-  //   this.dataService.getAllStudents().subscribe(data => {
-  //     console.log(data);
-  //   });
-  // }
 }
