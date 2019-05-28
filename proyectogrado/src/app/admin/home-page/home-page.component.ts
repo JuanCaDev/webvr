@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
-import { StudentInterface } from 'src/app/models/student';
+import { Student } from 'src/app/models/student';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Teacher } from 'src/app/models/teacher';
 
 @Component({
   selector: 'app-home-page',
@@ -23,7 +24,12 @@ export class HomePageComponent implements OnInit {
   teacherId: string;
   studentsInTeacher: string[] = [];
 
-  students: StudentInterface[];
+  students: Student[];
+
+  isCoordinador: any = null;
+  userUid: string = null;
+
+  teachers: Teacher[];
 
   constructor(
     private authService: AuthService,
@@ -34,24 +40,11 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
-        this.teacherId = user.uid;
-        this.dataService.getOneTeacher(this.teacherId).subscribe(
-          (data: any) => {
-            console.log(data);
-            if (!data) {
-              this.authService.logout();
-              this.route.navigate(['/login']);
-            } else {
-              console.log('Es un profesor');
-            }
-          },
-          error => {
-            this.authService.logout();
-            this.route.navigate(['/login']);
-          }
-        );
         console.log(user);
-        this.getStudents(this.teacherId);
+        this.db.collection('coordinators').doc(user.uid).get().subscribe(
+          (doc) => this.teachers = doc.data().teachers,
+          error => console.log('Error al buscar Coordinador')
+        );
       }
     });
   }
@@ -70,7 +63,7 @@ export class HomePageComponent implements OnInit {
         .then(() => {
           // Registro estudiante por correo
           this.authService.registerUser(this.email, this.password).then(
-            data => {
+            (data: any) => {
               const student = {
                 name: this.name,
                 email: this.email,
@@ -83,11 +76,11 @@ export class HomePageComponent implements OnInit {
               };
 
               // Agrego estudiante a collección
-              this.dataService.addStudent(student);
-              this.dataService.toast('Estudiante creado correctamente');
+              // this.dataService.addStudent(student);
+              alert('Estudiante creado correctamente');
             },
             error => {
-              this.dataService.toast('Error al agregar estudiante');
+              alert('Error al agregar estudiante');
               console.log('Error', error);
             }
           );
@@ -102,9 +95,9 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  getAllStudents() {
-    this.dataService.getAllStudents().subscribe(data => {
-      console.log(data);
-    });
-  }
+  // getAllStudents() {
+  //   this.dataService.getAllStudents().subscribe(data => {
+  //     console.log(data);
+  //   });
+  // }
 }

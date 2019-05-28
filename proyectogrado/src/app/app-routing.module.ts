@@ -8,15 +8,18 @@ import { DetailsPageComponent } from './admin/details-page/details-page.componen
 import { Level1Component } from './aframe/level1/level1.component';
 import { Level2Component } from './aframe/level2/level2.component';
 import { Level3Component } from './aframe/level3/level3.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterPageComponent } from './admin/register-page/register-page.component';
 
 const routes: Routes = [
-  {  path: '', component: HomePageComponent },
+  {  path: '', component: HomePageComponent, canActivate: [AuthGuard] },
   {  path: 'login', component: LoginPageComponent },
-  {  path: 'student/:id', component: DetailsPageComponent },
-  {  path: 'admin', component: PrivatePageComponent },
-  {  path: 'game/level1', component: Level1Component },
-  {  path: 'game/level2', component: Level2Component },
-  {  path: 'game/level3', component: Level3Component },
+  {  path: 'register', component: RegisterPageComponent },
+  {  path: 'student/:id', component: DetailsPageComponent, canActivate: [AuthGuard] },
+  {  path: 'admin', component: PrivatePageComponent, canActivate: [AuthGuard] },
+  {  path: 'game/level1', component: Level1Component, canActivate: [AuthGuard] },
+  {  path: 'game/level2', component: Level2Component, canActivate: [AuthGuard] },
+  {  path: 'game/level3', component: Level3Component, canActivate: [AuthGuard] },
   {  path: '**', component: NotFoundPageComponent }
 ];
 

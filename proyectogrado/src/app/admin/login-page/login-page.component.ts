@@ -22,32 +22,26 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginUser() {
-    return this.authService.loginUser(this.email, this.password)
-      .then(data => {
-        this.toast('Usuario logueado correctamente');
-        console.log('Login', data);
-
-        // Validar usuarios
-        this.db.collection('students').doc(data.user.uid).get().subscribe(doc => {
-          if (doc.exists) {
-            console.log('Estudiante: data', doc.data());
+  loginUser(email: string, password: string, type: string) {
+    this.authService.loginUser(email, password).then(
+      () => {
+        switch (type) {
+          case 'student':
             this.router.navigate(['game/level1']);
-          } else {
-            console.log('Es profesor');
-            if (data.user.email === 'juancafelizzola@gmail.com') {
-              this.router.navigate(['admin']);
-            } else {
-              this.router.navigate(['']);
-            }
-          }
-        });
-      })
-      .catch(() => this.toast('Usuario y/o contraseña incorrecta'));
+            break;
+          case 'teacher':
+            this.router.navigate(['']);
+            break;
+          case 'coordinator':
+            this.router.navigate(['admin']);
+            break;
+        }
+      }
+    )
   }
 
-  toast(text: string) {
-    M.toast({html: text});
+  goRegister() {
+    this.router.navigate(['register']);
   }
 
 }

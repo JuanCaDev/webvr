@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { StudentInterface } from 'src/app/models/student';
+import { Student } from 'src/app/models/student';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./details-page.component.scss']
 })
 export class DetailsPageComponent implements OnInit {
-  student: StudentInterface;
+  student: Student;
 
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) { }
 

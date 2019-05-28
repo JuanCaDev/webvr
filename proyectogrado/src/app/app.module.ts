@@ -20,6 +20,7 @@ import { DetailsPageComponent } from './admin/details-page/details-page.componen
 import { Level1Component } from './aframe/level1/level1.component';
 import { Level2Component } from './aframe/level2/level2.component';
 import { Level3Component } from './aframe/level3/level3.component';
+import { RegisterPageComponent } from './admin/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { Level3Component } from './aframe/level3/level3.component';
     DetailsPageComponent,
     Level1Component,
     Level2Component,
-    Level3Component
+    Level3Component,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

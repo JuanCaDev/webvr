@@ -1,7 +1,7 @@
-export interface Student {
+export interface Coordinator {
   uid: string;
   doc: number;
   name: string;
   email: string;
-  teacher: number;
+  teachers?: any;
 }

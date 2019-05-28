@@ -1,57 +1,45 @@
+<app-navbar></app-navbar>
 <div class="container">
   <div class="row">
-    <div class="col-s12">
+    <div class="col-12">
       <h5>Profesores:</h5>
-      <button class="btn right modal-trigger" href="#modal1"><i class="fas fa-plus"></i></button>
-      <table class="highlight">
+      <table class="table table-hover mt-2 text-center">
         <thead>
           <tr>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Estudiantes</th>
-              <th>Acciones</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Estudiantes</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
-      
         <tbody>
           <tr *ngFor="let teacher of teachers">
-            <td>{{ teacher.name }}</td>
-            <td>{{ teacher.email }}</td>
-            <td>{{ teacher.students.length }}</td>
+            <td scope="row">{{teacher.name}}</td>
+            <td>{{teacher.email}}</td>
+            <td>{{teacher.students.length}}</td>
             <td>
-              <i class="far fa-edit"></i>
-              <i class="far fa-trash-alt"></i>
+              <i class="fas fa-search" (click)="selectTeacher(teacher)" data-toggle="modal" data-target="#modalStudent"></i>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <!-- Modal Structure -->
-      <div id="modal1" class="modal">
-        <div class="modal-content">
-          <form (submit)="addTeacher()">
-            <h6>Crear nuevo profesor</h6>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="text" type="text" class="validate" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
-                <label for="text">Nombre completo</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
-                <label for="email">Email</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-                <label for="password">Password</label>
-              </div>
-            </div>
-            <button class="btn modal-close" type="submit">Entrar</button>
-          </form>
-        </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Datos profesor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="teacherSelected">
+        <p><b>Nombre completo: </b>{{teacherSelected.name}}</p>
+        <p><b>Email: </b>{{teacherSelected.email}}</p>
+        <p><b>Documento: </b>{{teacherSelected.doc}}</p>
       </div>
     </div>
   </div>

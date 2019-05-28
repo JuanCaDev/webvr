@@ -1,6 +1,8 @@
-export interface TeacherInterface {
+export interface Teacher {
+  uid: string;
+  doc: number;
   name: string;
   email: string;
-  uid: string;
   students?: any;
+  coordinator?: number;
 }

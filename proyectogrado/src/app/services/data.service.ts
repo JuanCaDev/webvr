@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { StudentInterface } from '../models/student';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Student } from '../models/student';
 
 import * as M from 'materialize-css';
+import { Coordinator } from '../models/coordinator';
 
 @Injectable({
   providedIn: 'root'
@@ -10,38 +11,69 @@ import * as M from 'materialize-css';
 export class DataService {
 
   constructor(
-    public db: AngularFirestore) { }
+    public db: AngularFirestore
+  ) { }
 
-  getAllTeachers() {
-    return this.db.collection('teachers').valueChanges();
+  // Users: general
+  createUser(type: string, object: any) {
+    return this.db.collection(type).doc(object.uid).set(object);
   }
 
+  updateUser(type: string, object: any) {
+    return this.db.collection(type).doc(object.uid).set(object, {merge: true});
+  }
+
+  // Teacher
   getOneTeacher(uid: string) {
     return this.db.collection('teachers').doc(uid).valueChanges();
   }
 
-  getAllStudents() {
-    return this.db.collection('students').valueChanges();
+  deleteTeacher(uid: string) {
+    return this.db.collection('teachers').doc(uid).delete();
   }
 
-  getOneStudent(uid: string) {
-    return this.db.collection('students').doc(uid).valueChanges();
-  }
+  // -----------
 
-  addStudent(student: StudentInterface) {
-    return this.db.collection('students').doc(student.uid).set(student);
-  }
+  // Users
 
-  updateStudent(student: StudentInterface) {
+  // getOneUser(uid: string) {
+  //   return this.db.collection('users').doc(uid).valueChanges().subscribe(
+  //     (data: any) => console.log(data)
+  //   );
+  // }
 
-  }
+  // Profesores
 
-  deleteStudent(id: string) {
+  // getAllTeachers() {
+  //   return this.db.collection('teachers').valueChanges();
+  // }
 
-  }
+  // Estudiantes
 
-  toast(text: string) {
-    M.toast({html: text});
-  }
+  // getAllStudents() {
+  //   return this.db.collection('students').valueChanges();
+  // }
+
+  // getOneStudent(uid: string) {
+  //   return this.db.collection('students').doc(uid).valueChanges();
+  // }
+
+  // addStudent(student: Student) {
+  //   return this.db.collection('students').doc(student.uid).set(student);
+  // }
+
+  // updateStudent(student: Student) {
+
+  // }
+
+  // deleteStudent(id: string) {
+
+  // }
+
+  // Coordinadores
+
+  // addCoordinator(coordinator: StudentInterface) {
+  //   return this.db.collection('students').doc(student.uid).set(student);
+  // }
 
 }

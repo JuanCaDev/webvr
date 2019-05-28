@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.dataService.toast('Haz cerrado sesión');
+    alert('Haz cerrado sesión');
     this.router.navigate(['login']);
   }
 

@@ -41,23 +41,23 @@ export class Level1Component implements OnInit {
         console.log(user);
         this.studentId = user.uid;
         // Comprobar que es estudiante
-        this.dataService.getOneStudent(this.studentId).subscribe(
-          (data: any) => {
-            if (data) {
-              console.log(data);
-              console.log('Es un estudiante');
-            } else {
-              this.authService.logout();
-              this.route.navigate(['/login']);
-            }
-          },
-          error => {
-            this.authService.logout();
-            this.route.navigate(['/login']);
-          }
-        );
+        // this.dataService.getOneStudent(this.studentId).subscribe(
+        //   (data: any) => {
+        //     if (data) {
+        //       console.log(data);
+        //       console.log('Es un estudiante');
+        //     } else {
+        //       this.authService.logout();
+        //       this.route.navigate(['/login']);
+        //     }
+        //   },
+        //   error => {
+        //     this.authService.logout();
+        //     this.route.navigate(['/login']);
+        //   }
+        // );
 
-        this.startLevel1();
+        // this.startLevel1();
         this.audioMusic.play();
         this.audioMusic.volumne = 0.6;
         setTimeout(() => {
@@ -73,31 +73,31 @@ export class Level1Component implements OnInit {
     });
   }
 
-  startLevel1() {
-    this.dataService.getOneStudent(this.studentId).subscribe((user: any) => {
-      console.log(user.levels.level1.homework1 === undefined);
-      this.car.addEventListener('click', () => {
-        if (user.levels.level1.homework1 === undefined) {
-          this.homework1(
-            '__ carro es de color verde',
-            ['El', 'La', 'Unos']
-          );
-        } else {
-          this.dataService.toast('Ya realizaste esta tarea');
-        }
-      });
-      this.elf.addEventListener('click', () => {
-        if (user.levels.level1.homework2 === undefined) {
-          this.homework2(
-            '__ enanos del bosque',
-            ['Un', 'El', 'Los']
-          );
-        } else {
-          this.dataService.toast('Ya realizaste esta tarea');
-        }
-      });
-    });
-  }
+  // startLevel1() {
+  //   this.dataService.getOneStudent(this.studentId).subscribe((user: any) => {
+  //     console.log(user.levels.level1.homework1 === undefined);
+  //     this.car.addEventListener('click', () => {
+  //       if (user.levels.level1.homework1 === undefined) {
+  //         this.homework1(
+  //           '__ carro es de color verde',
+  //           ['El', 'La', 'Unos']
+  //         );
+  //       } else {
+  //         alert('Ya realizaste esta tarea');
+  //       }
+  //     });
+  //     this.elf.addEventListener('click', () => {
+  //       if (user.levels.level1.homework2 === undefined) {
+  //         this.homework2(
+  //           '__ enanos del bosque',
+  //           ['Un', 'El', 'Los']
+  //         );
+  //       } else {
+  //         alert('Ya realizaste esta tarea');
+  //       }
+  //     });
+  //   });
+  // }
 
   homework1(question: string, answers: any) {
     this.audioHomework1.play();
@@ -135,7 +135,7 @@ export class Level1Component implements OnInit {
             }
           }, { merge: true }).then(
             () => {
-              this.dataService.toast('Muy bien');
+              alert('Muy bien');
               this.audioGood.play();
               this.questionEntity.innerHTML = '';
               this.car.setAttribute('animation', 'property: position; to: 2.4 0 2; dur: 2000');
@@ -155,7 +155,7 @@ export class Level1Component implements OnInit {
             }
           }, { merge: true }).then(
             () => {
-              this.dataService.toast('Respuesta incorrecta');
+              alert('Respuesta incorrecta');
               this.audioIncorrect.play();
               this.questionEntity.innerHTML = '';
             }
@@ -200,7 +200,7 @@ export class Level1Component implements OnInit {
             }
           }, { merge: true }).then(
             () => {
-              this.dataService.toast('Muy bien');
+              alert('Muy bien');
               this.audioGood.play();
               this.questionEntity.innerHTML = '';
               this.elf.setAttribute('animation', 'property: position; to: 2.4 -1.6 2; dur: 2000');
@@ -217,7 +217,7 @@ export class Level1Component implements OnInit {
             }
           }, { merge: true }).then(
             () => {
-              this.dataService.toast('Respuesta incorrecta');
+              alert('Respuesta incorrecta');
               this.audioIncorrect.play();
               this.questionEntity.innerHTML = '';
             }
