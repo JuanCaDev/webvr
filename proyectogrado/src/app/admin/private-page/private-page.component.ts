@@ -20,23 +20,39 @@ export class PrivatePageComponent implements OnInit {
     private authService: AuthService,
     private db: AngularFirestore,
     public dataService: DataService,
-    private route: Router
-  ) { }
-
-  ngOnInit() {
+    private router: Router
+  ) {
     this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
         console.log(user);
         this.db.collection('coordinators').doc(user.uid).get().subscribe(
           (doc) => {
-            this.teachersUid = doc.data().teachers;
-            this.getTeachers();
-            console.log(this.teachersUid);
+            if (doc.exists) {
+              this.teachersUid = doc.data().teachers;
+              this.getTeachers();
+              console.log(this.teachersUid);
+            } else {
+              this.authService.logout();
+              this.router.navigate(['login']);
+              alert('No tienes permiso para acceder');
+            }
           },
-          error => console.log('Error al buscar Coordinador')
+          error => {
+            console.log('Error al buscar Coordinador');
+            this.authService.logout();
+            this.router.navigate(['login']);
+          }
         );
+      } else {
+        this.authService.logout();
+        this.router.navigate(['login']);
+        alert('No tienes permiso para acceder');
+        console.log('Error al buscar usuario');
       }
     });
+  }
+
+  ngOnInit() {
   }
 
   getTeachers() {
@@ -54,5 +70,16 @@ export class PrivatePageComponent implements OnInit {
   selectTeacher(teacher: Teacher) {
     this.teacherSelected = teacher;
     console.log(this.teacherSelected);
+  }
+
+  isCoordinator(uid: string) {
+    this.db.collection('coordinators').doc(uid).get().subscribe(
+      (doc) => {
+        this.teachersUid = doc.data().teachers;
+        this.getTeachers();
+        console.log(this.teachersUid);
+      },
+      error => console.log('Error al buscar Coordinador')
+    );
   }
 }

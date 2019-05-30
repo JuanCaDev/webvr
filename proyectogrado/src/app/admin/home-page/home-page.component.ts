@@ -20,23 +20,39 @@ export class HomePageComponent implements OnInit {
     private authService: AuthService,
     private dataService: DataService,
     private db: AngularFirestore,
-    private route: Router
-  ) { }
-
-  ngOnInit() {
+    private router: Router
+  ) {
     this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
         console.log(user);
         this.db.collection('teachers').doc(user.uid).get().subscribe(
           (doc) => {
-            this.studentsUid = doc.data().students;
-            this.getStudents();
-            console.log(this.studentsUid);
+            if (doc.exists) {
+              this.studentsUid = doc.data().students;
+              this.getStudents();
+              console.log(this.studentsUid);
+            } else {
+              this.authService.logout();
+              this.router.navigate(['login']);
+              alert('No tienes permiso para acceder');
+            }
           },
-          error => console.log('Error al buscar Coordinador')
+          error => {
+            console.log('Error al buscar Profesor');
+            this.authService.logout();
+            this.router.navigate(['login']);
+          }
         );
+      } else {
+        this.authService.logout();
+        this.router.navigate(['login']);
+        alert('No tienes permiso para acceder');
+        console.log('Error al buscar usuario');
       }
     });
+  }
+
+  ngOnInit() {
   }
 
   getStudents() {

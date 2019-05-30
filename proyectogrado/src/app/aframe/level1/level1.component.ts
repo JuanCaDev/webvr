@@ -28,49 +28,78 @@ export class Level1Component implements OnInit {
     private authService: AuthService,
     private db: AngularFirestore,
     private dataService: DataService,
-    private route: Router) {
-    }
-
-  ngOnInit() {
-    this.authService.isAuth().onAuthStateChanged(user => {
-      this.car = document.getElementById('car');
-      this.elf = document.getElementById('elf');
-      this.questionEntity = document.getElementById('question');
+    private router: Router
+  ) {
+    this.authService.isAuth().onAuthStateChanged((user: any) => {
       if (user) {
-        console.log('Usuario logueado');
         console.log(user);
-        this.studentId = user.uid;
-        // Comprobar que es estudiante
-        // this.dataService.getOneStudent(this.studentId).subscribe(
-        //   (data: any) => {
-        //     if (data) {
-        //       console.log(data);
-        //       console.log('Es un estudiante');
-        //     } else {
-        //       this.authService.logout();
-        //       this.route.navigate(['/login']);
-        //     }
-        //   },
-        //   error => {
-        //     this.authService.logout();
-        //     this.route.navigate(['/login']);
-        //   }
-        // );
-
-        // this.startLevel1();
-        this.audioMusic.play();
-        this.audioMusic.volumne = 0.6;
-        setTimeout(() => {
-          this.audioMusic.volume = 0.05;
-          this.audioWelcome.play();
-          setTimeout(() => {
-            this.audioWelcomeHomework1.play();
-          }, 6000);
-        }, 5000);
+        this.db.collection('students').doc(user.uid).get().subscribe(
+          (doc) => {
+            if (doc.exists) {
+              // this.studentsUid = doc.data().students;
+              // this.getStudents();
+              console.log(doc.data());
+            } else {
+              this.authService.logout();
+              this.router.navigate(['login']);
+              alert('No tienes permiso para acceder');
+            }
+          },
+          error => {
+            console.log('Error al buscar Estudiante');
+            this.authService.logout();
+            this.router.navigate(['login']);
+          }
+        );
       } else {
-        console.log('Usuario no logueado');
+        this.authService.logout();
+        this.router.navigate(['login']);
+        alert('No tienes permiso para acceder');
+        console.log('Error al buscar usuario');
       }
     });
+  }
+
+  ngOnInit() {
+    // this.authService.isAuth().onAuthStateChanged(user => {
+    //   this.car = document.getElementById('car');
+    //   this.elf = document.getElementById('elf');
+    //   this.questionEntity = document.getElementById('question');
+    //   if (user) {
+    //     console.log('Usuario logueado');
+    //     console.log(user);
+    //     this.studentId = user.uid;
+    //     // Comprobar que es estudiante
+    //     // this.dataService.getOneStudent(this.studentId).subscribe(
+    //     //   (data: any) => {
+    //     //     if (data) {
+    //     //       console.log(data);
+    //     //       console.log('Es un estudiante');
+    //     //     } else {
+    //     //       this.authService.logout();
+    //     //       this.route.navigate(['/login']);
+    //     //     }
+    //     //   },
+    //     //   error => {
+    //     //     this.authService.logout();
+    //     //     this.route.navigate(['/login']);
+    //     //   }
+    //     // );
+
+    //     // this.startLevel1();
+    //     this.audioMusic.play();
+    //     this.audioMusic.volumne = 0.6;
+    //     setTimeout(() => {
+    //       this.audioMusic.volume = 0.05;
+    //       this.audioWelcome.play();
+    //       setTimeout(() => {
+    //         this.audioWelcomeHomework1.play();
+    //       }, 6000);
+    //     }, 5000);
+    //   } else {
+    //     console.log('Usuario no logueado');
+    //   }
+    // });
   }
 
   // startLevel1() {
