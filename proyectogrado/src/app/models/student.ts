@@ -4,4 +4,5 @@ export interface Student {
   name: string;
   email: string;
   teacher: number;
+  levels?: any;
 }

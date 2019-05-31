@@ -26,22 +26,9 @@ export class RegisterPageComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.getOneUser();
-  }
-
-  getOneUser() {
-    this.db.collection('users').doc('1234').get().subscribe(
-      (data: any) => console.log(data)
-    );
-  }
+  ngOnInit() {}
 
   registerUser(doc: number, name: string, email: string, password: string, type: string, code: number) {
-    // this.db.collection('users', ref => ref.where('type', '==', type));
-    // this.authService.registerUser(email, password).then(
-    //   (data: any) => {
-    //   }
-    // ).catch(() => alert('Verifica que todos los campos estén correctos'));
     console.log('User', doc, name, email, password, type, code);
     switch (type) {
       case 'student':
@@ -52,7 +39,12 @@ export class RegisterPageComponent implements OnInit {
               doc,
               name,
               email,
-              teacher: code
+              teacher: code,
+              levels: {
+                level1: {},
+                level2: {},
+                level3: {}
+              }
             };
             this.db.collection('teachers', ref => ref.where(
               'doc', '==', student.teacher).limit(1)
@@ -77,7 +69,10 @@ export class RegisterPageComponent implements OnInit {
                     .then(() => {
                       // Agregar Estudiante a db
                       this.dataService.createUser('students', student)
-                        .then(() => alert('Usuario registrado correctamente'))
+                        .then(() => {
+                          alert('Usuario registrado correctamente');
+                          this.router.navigate(['game/level1']);
+                        })
                         .catch(() => alert('Error al registrar: Verifique todos los campos'));
                     })
                     .catch(() => {
@@ -124,7 +119,10 @@ export class RegisterPageComponent implements OnInit {
                     .then(() => {
                       // Agregar Profesor a db
                       this.dataService.createUser('teachers', teacher)
-                        .then(() => alert('Usuario registrado correctamente'))
+                        .then(() => {
+                          alert('Usuario registrado correctamente');
+                          this.router.navigate(['']);
+                        })
                         .catch(() => alert('Error al registrar: Verifique todos los campos'));
                     })
                     .catch(() => {
@@ -147,7 +145,10 @@ export class RegisterPageComponent implements OnInit {
               email
             };
             this.dataService.createUser('coordinators', coordinator)
-              .then(() => alert('Usuario registrado correctamente'))
+              .then(() => {
+                alert('Usuario registrado correctamente');
+                this.router.navigate(['admin']);
+              })
               .catch(() => alert('Error al registrar: Verifique todos los campos'));
           }
         );

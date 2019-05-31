@@ -29,8 +29,10 @@ export class PrivatePageComponent implements OnInit {
           (doc) => {
             if (doc.exists) {
               this.teachersUid = doc.data().teachers;
-              this.getTeachers();
               console.log(this.teachersUid);
+              if (this.teachersUid !== undefined) {
+                this.getTeachers();
+              }
             } else {
               this.authService.logout();
               this.router.navigate(['login']);
@@ -46,8 +48,7 @@ export class PrivatePageComponent implements OnInit {
       } else {
         this.authService.logout();
         this.router.navigate(['login']);
-        alert('No tienes permiso para acceder');
-        console.log('Error al buscar usuario');
+        console.log('Error al buscar usuario autentificado');
       }
     });
   }

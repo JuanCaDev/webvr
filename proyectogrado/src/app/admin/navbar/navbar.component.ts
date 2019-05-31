@@ -21,9 +21,12 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
-    alert('Haz cerrado sesión');
-    this.router.navigate(['login']);
+    this.authService.logout().then(
+      () => {
+        this.router.navigate(['login']);
+        alert('Haz cerrado sesión');
+      }
+    );
   }
 
   getCurrentUser() {

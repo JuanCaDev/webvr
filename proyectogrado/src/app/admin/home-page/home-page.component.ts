@@ -14,7 +14,7 @@ import { Teacher } from 'src/app/models/teacher';
 export class HomePageComponent implements OnInit {
   studentsUid: string[];
   students: Teacher[] = [];
-  studentSelected: Teacher;
+  studentSelected: Student;
 
   constructor(
     private authService: AuthService,
@@ -29,8 +29,10 @@ export class HomePageComponent implements OnInit {
           (doc) => {
             if (doc.exists) {
               this.studentsUid = doc.data().students;
-              this.getStudents();
-              console.log(this.studentsUid);
+              if (this.studentsUid !== undefined) {
+                console.log(this.studentsUid);
+                this.getStudents();
+              }
             } else {
               this.authService.logout();
               this.router.navigate(['login']);
@@ -46,8 +48,7 @@ export class HomePageComponent implements OnInit {
       } else {
         this.authService.logout();
         this.router.navigate(['login']);
-        alert('No tienes permiso para acceder');
-        console.log('Error al buscar usuario');
+        console.log('Error al buscar usuario autentificado');
       }
     });
   }

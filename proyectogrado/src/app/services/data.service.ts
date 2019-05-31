@@ -37,6 +37,10 @@ export class DataService {
     return this.db.collection('students').doc(uid).valueChanges();
   }
 
+  saveHomework(uid: string, object: any) {
+    return this.db.collection('students').doc(uid).set(object, {merge: true});
+  }
+
   // -----------
 
   // Users

@@ -8,7 +8,6 @@
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Correo</th>
-            <th scope="col">Promedio</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -16,7 +15,6 @@
           <tr *ngFor="let student of students">
             <td scope="row">{{student.name}}</td>
             <td>{{student.email}}</td>
-            <td>0000</td>
             <td>
               <i class="fas fa-search" (click)="selectStudent(student)" data-toggle="modal" data-target="#modalStudent"></i>
             </td>
@@ -43,18 +41,34 @@
         <table class="table table-hover mt-2 text-center">
           <thead>
             <tr>
-              <th scope="col">Nivel 1</th>
+              <th scope="col">Nivel</th>
               <th scope="col">1</th>
               <th scope="col">2</th>
               <th scope="col">3</th>
               <th scope="col">4</th>
-              <th scope="col">5</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td scope="row">0</td>
-              <td>0</td>
+              <td scope="row">1</td>
+              <td>{{studentSelected.levels.level1.homework1}}</td>
+              <td>{{studentSelected.levels.level1.homework2}}</td>
+              <td>{{studentSelected.levels.level1.homework3}}</td>
+              <td>{{studentSelected.levels.level1.homework4}}</td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th scope="col">Nivel</th>
+              <th scope="col">1</th>
+              <th scope="col">2</th>
+              <th scope="col">3</th>
+              <th scope="col">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">2</td>
               <td>0</td>
               <td>0</td>
               <td>0</td>
@@ -63,18 +77,16 @@
           </tbody>
           <thead>
             <tr>
-              <th scope="col">Nivel 2</th>
+              <th scope="col">Nivel</th>
               <th scope="col">1</th>
               <th scope="col">2</th>
               <th scope="col">3</th>
               <th scope="col">4</th>
-              <th scope="col">5</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td scope="row">0</td>
-              <td>0</td>
+              <td scope="row">3</td>
               <td>0</td>
               <td>0</td>
               <td>0</td>
