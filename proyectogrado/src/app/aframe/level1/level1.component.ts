@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Level1Component implements OnInit {
   studentUid: string;
+
   audioMusic: any = new Audio('./assets/sound/music.mp3');
   audioWelcome: any = new Audio('./assets/sound/level1/welcome.mp3');
   audioGood: any = new Audio('./assets/sound/good.mp3');
@@ -19,6 +20,13 @@ export class Level1Component implements OnInit {
   audioHomework1: any = new Audio('./assets/sound/level1/homework1.mp3');
   audioWelcomeHomework2: any = new Audio('./assets/sound/level1/welcomeHomework2.mp3');
   audioHomework2: any = new Audio('./assets/sound/level1/homework2.mp3');
+  remember12: any = new Audio('./assets/sound/level1/remember12.mp3');
+  audioWelcomeHomework3: any = new Audio('./assets/sound/level1/welcomeHomework3.mp3');
+  audioHomework3: any = new Audio('./assets/sound/level1/homework3.mp3');
+  audioWelcomeHomework4: any = new Audio('./assets/sound/level1/welcomeHomework4.mp3');
+  audioHomework4: any = new Audio('./assets/sound/level1/homework4.mp3');
+  remember34: any = new Audio('./assets/sound/level1/remember34.mp3');
+
   questionEntity: any;
   scene: any;
 
@@ -40,20 +48,27 @@ export class Level1Component implements OnInit {
           (doc) => {
             if (doc.exists) {
               console.log(doc.data());
-              this.studentUid = doc.data().uid; 
-              // Obtener elementos por id
-              // this.questionEntity = document.getElementById('question');
-              this.scene = document.getElementById('scene');
-              this.level1Plane();
-              this.audioMusic.play();
-              this.audioMusic.volumne = 0.4;
-              setTimeout(() => {
-                this.audioMusic.volume = 0.05;
-                this.audioWelcome.play();
-                setTimeout(() => {
-                  this.startLevel1(this.studentUid);
-                }, 6000);
-              }, 6000);
+              this.studentUid = doc.data().uid;
+              // Verificar si completó todas las tareas
+              this.checkLevel(doc.data().levels).then(
+                res => {
+                  console.log('Tareas del nivel 1 finalizadas');
+                },
+                rej => {
+                  this.scene = document.getElementById('scene');
+                  this.level1Plane();
+                  this.audioMusic.play();
+                  this.audioMusic.volumne = 0.4;
+                  setTimeout(() => {
+                    this.audioMusic.volume = 0.05;
+                    this.audioWelcome.play();
+                    setTimeout(() => {
+                      this.startLevel1(this.studentUid);
+                    }, 6000);
+                  }, 6000);
+                }
+              );
+              
             } else {
               this.authService.logout();
               this.router.navigate(['login']);
@@ -73,200 +88,7 @@ export class Level1Component implements OnInit {
         console.log('Error al buscar usuario');
       }
     });
-    // this.authService.isAuth().onAuthStateChanged(user => {
-    //   this.car = document.getElementById('car');
-    //   this.elf = document.getElementById('elf');
-    //   this.questionEntity = document.getElementById('question');
-    //   if (user) {
-    //     console.log('Usuario logueado');
-    //     console.log(user);
-    //     this.studentId = user.uid;
-    //     // Comprobar que es estudiante
-    //     // this.dataService.getOneStudent(this.studentId).subscribe(
-    //     //   (data: any) => {
-    //     //     if (data) {
-    //     //       console.log(data);
-    //     //       console.log('Es un estudiante');
-    //     //     } else {
-    //     //       this.authService.logout();
-    //     //       this.route.navigate(['/login']);
-    //     //     }
-    //     //   },
-    //     //   error => {
-    //     //     this.authService.logout();
-    //     //     this.route.navigate(['/login']);
-    //     //   }
-    //     // );
-
-    //     // this.startLevel1();
-    //     this.audioMusic.play();
-    //     this.audioMusic.volumne = 0.6;
-    //     setTimeout(() => {
-    //       this.audioMusic.volume = 0.05;
-    //       this.audioWelcome.play();
-    //       setTimeout(() => {
-    //         this.audioWelcomeHomework1.play();
-    //       }, 6000);
-    //     }, 5000);
-    //   } else {
-    //     console.log('Usuario no logueado');
-    //   }
-    // });
   }
-
-  // startLevel1() {
-  //   this.dataService.getOneStudent(this.studentId).subscribe((user: any) => {
-  //     console.log(user.levels.level1.homework1 === undefined);
-  //     this.car.addEventListener('click', () => {
-  //       if (user.levels.level1.homework1 === undefined) {
-  //         this.homework1(
-  //           '__ carro es de color verde',
-  //           ['El', 'La', 'Unos']
-  //         );
-  //       } else {
-  //         alert('Ya realizaste esta tarea');
-  //       }
-  //     });
-  //     this.elf.addEventListener('click', () => {
-  //       if (user.levels.level1.homework2 === undefined) {
-  //         this.homework2(
-  //           '__ enanos del bosque',
-  //           ['Un', 'El', 'Los']
-  //         );
-  //       } else {
-  //         alert('Ya realizaste esta tarea');
-  //       }
-  //     });
-  //   });
-  // }
-
-  // homework1(question: string, answers: any) {
-  //   this.audioHomework1.play();
-  //   console.log(this.car);
-  //   // Plane de pregunta
-  //   console.log(this.questionEntity);
-  //   this.questionEntity.innerHTML += `
-  //       <a-plane color="#7BC8A4" width="3" height="1" depth="0.001"
-  //       position="0 2.5 -2.5">
-  //         <a-text value="${question}" align="center"></a-tex>
-  //       </a-plane>
-  //     `;
-  //   let contador = -2.1;
-  //   let aBox: any;
-  //   // Plane de respuesta
-  //   answers.forEach(answer => {
-  //     this.questionEntity.innerHTML += `
-  //       <a-plane color="#7BC8A4" width="1.2" height="1" depth="0.001"
-  //       position="${contador} 1.2 -2.5">
-  //         <a-text value="${answer}" align="center"></a-tex>
-  //       </a-plane>
-  //     `;
-  //     contador += 2.1;
-  //   });
-
-  //   // Añadiendo evento click a las cajas
-  //   aBox = this.questionEntity.querySelectorAll('a-plane');
-  //   console.log(aBox);
-  //   aBox.forEach(box => {
-  //     box.addEventListener('click', () => {
-  //       if (box === aBox[1]) {
-  //         this.db.collection('students').doc(this.studentId).set({
-  //           levels: {
-  //             level1: { homework1: 5}
-  //           }
-  //         }, { merge: true }).then(
-  //           () => {
-  //             alert('Muy bien');
-  //             this.audioGood.play();
-  //             this.questionEntity.innerHTML = '';
-  //             this.car.setAttribute('animation', 'property: position; to: 2.4 0 2; dur: 2000');
-  //             setTimeout(() => {
-  //               this.car.removeAttribute('animation');
-  //               this.car.setAttribute('animation', 'property: position; to: 0 0 0; dur: 2000');
-  //               setTimeout(() => {
-  //                 this.audioWelcomeHomework2.play();
-  //               }, 3000);
-  //             }, 5000);
-  //           }
-  //         );
-  //       } else {
-  //         this.db.collection('students').doc(this.studentId).set({
-  //           levels: {
-  //             level1: { homework1: 1}
-  //           }
-  //         }, { merge: true }).then(
-  //           () => {
-  //             alert('Respuesta incorrecta');
-  //             this.audioIncorrect.play();
-  //             this.questionEntity.innerHTML = '';
-  //           }
-  //         );
-  //       }
-  //     });
-  //   });
-  // }
-
-  // homework2(question: string, answers: any) {
-  //   this.audioHomework2.play();
-  //   console.log(this.elf);
-  //   // Plane de pregunta
-  //   console.log(this.questionEntity);
-  //   this.questionEntity.innerHTML += `
-  //       <a-plane color="#7BC8A4" width="3" height="1" depth="0.001"
-  //       position="0 2.5 -2.5">
-  //         <a-text value="${question}" align="center"></a-tex>
-  //       </a-plane>
-  //     `;
-  //   let contador = -2.1;
-  //   // Plane de respuesta
-  //   answers.forEach(answer => {
-  //     this.questionEntity.innerHTML += `
-  //       <a-plane color="#7BC8A4" width="1.2" height="1" depth="0.001"
-  //       position="${contador} 1.2 -2.5">
-  //         <a-text value="${answer}" align="center"></a-tex>
-  //       </a-plane>
-  //     `;
-  //     contador += 2.1;
-  //   });
-
-  //   // Añadiendo evento click a las cajas
-  //   const aBox = this.questionEntity.querySelectorAll('a-plane');
-  //   console.log(aBox);
-  //   aBox.forEach(box => {
-  //     box.addEventListener('click', () => {
-  //       if (box === aBox[3]) {
-  //         this.db.collection('students').doc(this.studentId).set({
-  //           levels: {
-  //             level1: { homework2: 5}
-  //           }
-  //         }, { merge: true }).then(
-  //           () => {
-  //             alert('Muy bien');
-  //             this.audioGood.play();
-  //             this.questionEntity.innerHTML = '';
-  //             this.elf.setAttribute('animation', 'property: position; to: 2.4 -1.6 2; dur: 2000');
-  //             setTimeout(() => {
-  //               this.elf.removeAttribute('animation');
-  //               this.elf.setAttribute('animation', 'property: position; to: 0 0 0; dur: 2000');
-  //             }, 5000);
-  //           }
-  //         );
-  //       } else {
-  //         this.db.collection('students').doc(this.studentId).set({
-  //           levels: {
-  //             level1: { homework2: 1}
-  //           }
-  //         }, { merge: true }).then(
-  //           () => {
-  //             alert('Respuesta incorrecta');
-  //             this.audioIncorrect.play();
-  //             this.questionEntity.innerHTML = '';
-  //           }
-  //         );
-  //       }
-  //     });
-  //   });
-  // }
 
   level1Plane() {
     this.scene.innerHTML = `
@@ -300,6 +122,26 @@ export class Level1Component implements OnInit {
     });
   }
 
+  checkLevel(levels: any): Promise<{}> {
+    // tslint:disable-next-line:no-unused-expression
+    const promise = new Promise ((res, rej) => {
+      if (
+        levels.level1.homework1 !== undefined &&
+        levels.level1.homework2 !== undefined &&
+        levels.level1.homework3 !== undefined &&
+        levels.level1.homework4 !== undefined
+      ) {
+        this.audioMusic.pause();
+        this.audioWelcome.pause();
+        this.router.navigate(['../../game/level2']);
+        res();
+      } else {
+        rej();
+      }
+    });
+    return promise;
+  }
+
   startLevel1(uid: string) {
     this.dataService.getOneStudent(uid).subscribe(
       (data: any) => {
@@ -311,12 +153,27 @@ export class Level1Component implements OnInit {
           setTimeout(() => {
             console.log('Homework 1');
             this.homework1();
-          }, 2000);
+          }, 3000);
         } else if (data.levels.level1.homework2 === undefined) {
           setTimeout(() => {
             console.log('Homework 2');
             this.homework2();
-          }, 2000);
+          }, 3000);
+        } else if (data.levels.level1.homework3 === undefined) {
+          setTimeout(() => {
+            console.log('Homework 3');
+            this.homework3();
+          }, 3000);
+        } else if (data.levels.level1.homework4 === undefined) {
+          setTimeout(() => {
+            console.log('Homework 4');
+            this.homework4();
+          }, 3000);
+        } else {
+          setTimeout(() => {
+            console.log('Tareas Nivel 1 finalizadas');
+            this.router.navigate(['../../game/level2']);
+          }, 9000);
         }
       }
     );
@@ -397,6 +254,10 @@ export class Level1Component implements OnInit {
                 .then(() => {
                   this.audioGood.play();
                   this.scene.innerHTML = '';
+                  setTimeout(() => {
+                    this.remember12.play();
+                    setTimeout(() => {}, 5000);
+                  }, 2000);
                 }).catch(() => console.log('Error: contactar'));
             } else {
               console.log('Respuesta incorrecta');
@@ -409,6 +270,113 @@ export class Level1Component implements OnInit {
                 .then(() => {
                   this.audioIncorrect.play();
                   this.scene.innerHTML = '';
+                  setTimeout(() => {
+                    this.remember12.play();
+                    setTimeout(() => {}, 5000);
+                  }, 2000);
+                }).catch(() => console.log('Error: contactar'));
+            }
+          });
+        }
+        i++;
+      });
+    });
+  }
+
+  homework3() {
+    this.audioWelcomeHomework3.play();
+
+    this.elf = document.getElementById('toy1');
+    this.elf.addEventListener('click', () => {
+      this.audioHomework3.play();
+      this.questionPlane('__ castillo grande');
+      this.answersPlane(['Unos', 'El', 'Un']);
+      // Respuestas plane
+      const answersPlane = this.scene.querySelectorAll('a-plane');
+      console.log(answersPlane);
+      let i = 0;
+      answersPlane.forEach((answer: any) => {
+        if (i !== 0) {
+          answer.addEventListener('click', () => {
+            console.log('Presionada');
+            if (answer === answersPlane[3]) {
+              console.log('Respuesta correcta');
+              const calification = {
+                levels: {
+                  level1: { homework3: 5 }
+                }
+              };
+              this.dataService.saveHomework(this.studentUid, calification)
+                .then(() => {
+                  this.audioGood.play();
+                  this.scene.innerHTML = '';
+                }).catch(() => console.log('Error: contactar'));
+            } else {
+              console.log('Respuesta incorrecta');
+              const calification = {
+                levels: {
+                  level1: { homework3: 0 }
+                }
+              };
+              this.dataService.saveHomework(this.studentUid, calification)
+                .then(() => {
+                  this.audioIncorrect.play();
+                  this.scene.innerHTML = '';
+                }).catch(() => console.log('Error: contactar'));
+            }
+          });
+        }
+        i++;
+      });
+    });
+  }
+
+  homework4() {
+    this.audioWelcomeHomework4.play();
+
+    this.elf = document.getElementById('toy3');
+    this.elf.addEventListener('click', () => {
+      this.audioHomework4.play();
+      this.questionPlane('__ cajas amarillas');
+      this.answersPlane(['Unas', 'Las', 'Esas']);
+      // Respuestas plane
+      const answersPlane = this.scene.querySelectorAll('a-plane');
+      console.log(answersPlane);
+      let i = 0;
+      answersPlane.forEach((answer: any) => {
+        if (i !== 0) {
+          answer.addEventListener('click', () => {
+            console.log('Presionada');
+            if (answer === answersPlane[1]) {
+              console.log('Respuesta correcta');
+              const calification = {
+                levels: {
+                  level1: { homework4: 5 }
+                }
+              };
+              this.dataService.saveHomework(this.studentUid, calification)
+                .then(() => {
+                  this.audioGood.play();
+                  this.scene.innerHTML = '';
+                  setTimeout(() => {
+                    this.remember34.play();
+                    setTimeout(() => {}, 5000);
+                  }, 2000);
+                }).catch(() => console.log('Error: contactar'));
+            } else {
+              console.log('Respuesta incorrecta');
+              const calification = {
+                levels: {
+                  level1: { homework4: 0 }
+                }
+              };
+              this.dataService.saveHomework(this.studentUid, calification)
+                .then(() => {
+                  this.audioIncorrect.play();
+                  this.scene.innerHTML = '';
+                  setTimeout(() => {
+                    this.remember34.play();
+                  }, 3000);
                 }).catch(() => console.log('Error: contactar'));
             }
           });
