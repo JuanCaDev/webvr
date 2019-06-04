@@ -1,31 +1,34 @@
 <a-scene>
   <a-assets>
-    <a-asset-item id="farm-obj" src="./assets/obj-model/level2/farm.obj"></a-asset-item>
-    <a-asset-item id="farm-mtl" src="./assets/obj-model/level2/farm.mtl"></a-asset-item>
+    <a-asset-item id="gallina-obj" src="./assets/obj-model/level2/farm-0-gallina.obj"></a-asset-item>
+    <a-asset-item id="gallina-mtl" src="./assets/obj-model/level2/farm-0-gallina.mtl"></a-asset-item>
+    <a-asset-item id="arbusto-obj" src="./assets/obj-model/level2/farm-2-arbusto.obj"></a-asset-item>
+    <a-asset-item id="arbusto-mtl" src="./assets/obj-model/level2/farm-2-arbusto.mtl"></a-asset-item>
+    <a-asset-item id="letrero-obj" src="./assets/obj-model/level2/farm-4-letrero.obj"></a-asset-item>
+    <a-asset-item id="letrero-mtl" src="./assets/obj-model/level2/farm-4-letrero.mtl"></a-asset-item>
+    <a-asset-item id="bodega-obj" src="./assets/obj-model/level2/farm-6-bodega.obj"></a-asset-item>
+    <a-asset-item id="bodega-mtl" src="./assets/obj-model/level2/farm-6-bodega.mtl"></a-asset-item>
+    <a-asset-item id="granja-obj" src="./assets/obj-model/level2/farm-7-granja.obj"></a-asset-item>
+    <a-asset-item id="granja-mtl" src="./assets/obj-model/level2/farm-7-granja.mtl"></a-asset-item>
   </a-assets>
   
   <a-entity>
-    <a-entity obj-model="obj: #farm-obj; mtl: #farm-mtl"></a-entity>
+    <a-entity obj-model="obj: #gallina-obj; mtl: #gallina-mtl" id="gallina"></a-entity>
+    <a-entity obj-model="obj: #arbusto-obj; mtl: #arbusto-mtl" id="arbusto"></a-entity>
+    <a-entity obj-model="obj: #letrero-obj; mtl: #letrero-mtl" id="letrero"></a-entity>
+    <a-entity obj-model="obj: #bodega-obj; mtl: #bodega-mtl" id="bodega"></a-entity>
+    <a-entity obj-model="obj: #granja-obj; mtl: #granja-mtl"></a-entity>
   </a-entity>
   
   <!-- Camara -->
-  <a-entity animation="property: position; from: 0 15 60; to: 2 1.2 4; dur: 5000">
+  <a-entity animation="property: position; from: 0 15 60; to: 2 1.2 5; dur: 5000">
     <a-entity camera look-controls wasd-controls>
       <a-cursor id="cursor"></a-cursor>
     </a-entity>
   </a-entity>
-  <!-- <a-entity camera look-controls wasd-controls position="0 1.8 0">
-    <a-cursor id="cursor"></a-cursor>
-  </a-entity> -->
 
   <!-- Text nivel 2 -->
-  <a-plane id="level1" color="#7BC8A4" width="3" height="1" depth="0.001"
-      position="2 1.5 1.5"
-      text="align: center; value: Nivel 2; width: 10"
-      animation="property: position; from: 2 1.5 1.5; to: 2 -1.5 1.5; dur: 2000; delay: 9000">
-  </a-plane>
-
-  <a-entity id="question"></a-entity>
+  <a-entity id="scene"></a-entity>
   
   <!-- Forest -->
   <a-entity environment="preset: forest; skyType: gradient; lighting: point"></a-entity>

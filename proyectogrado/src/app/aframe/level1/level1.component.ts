@@ -30,9 +30,6 @@ export class Level1Component implements OnInit {
   questionEntity: any;
   scene: any;
 
-  car: any;
-  elf: any;
-
   constructor(
     private authService: AuthService,
     private db: AngularFirestore,
@@ -60,7 +57,7 @@ export class Level1Component implements OnInit {
                   this.audioMusic.play();
                   this.audioMusic.volumne = 0.4;
                   setTimeout(() => {
-                    this.audioMusic.volume = 0.05;
+                    this.audioMusic.volume = 0.08;
                     this.audioWelcome.play();
                     setTimeout(() => {
                       this.startLevel1(this.studentUid);
@@ -68,7 +65,6 @@ export class Level1Component implements OnInit {
                   }, 6000);
                 }
               );
-              
             } else {
               this.authService.logout();
               this.router.navigate(['login']);
@@ -182,8 +178,8 @@ export class Level1Component implements OnInit {
   homework1() {
     this.audioWelcomeHomework1.play();
 
-    this.car = document.getElementById('car');
-    this.car.addEventListener('click', () => {
+    const car = document.getElementById('car');
+    car.addEventListener('click', () => {
       this.audioHomework1.play();
       this.questionPlane('__ carro es de color verde');
       this.answersPlane(['El', 'La', 'Unos']);
@@ -230,8 +226,8 @@ export class Level1Component implements OnInit {
   homework2() {
     this.audioWelcomeHomework2.play();
 
-    this.elf = document.getElementById('elf');
-    this.elf.addEventListener('click', () => {
+    const elf = document.getElementById('elf');
+    elf.addEventListener('click', () => {
       this.audioHomework2.play();
       this.questionPlane('__ enanos del bosque');
       this.answersPlane(['Un', 'El', 'Los']);
@@ -286,8 +282,8 @@ export class Level1Component implements OnInit {
   homework3() {
     this.audioWelcomeHomework3.play();
 
-    this.elf = document.getElementById('toy1');
-    this.elf.addEventListener('click', () => {
+    const elf = document.getElementById('toy1');
+    elf.addEventListener('click', () => {
       this.audioHomework3.play();
       this.questionPlane('__ castillo grande');
       this.answersPlane(['Unos', 'El', 'Un']);
@@ -334,8 +330,8 @@ export class Level1Component implements OnInit {
   homework4() {
     this.audioWelcomeHomework4.play();
 
-    this.elf = document.getElementById('toy3');
-    this.elf.addEventListener('click', () => {
+    const elf = document.getElementById('toy3');
+    elf.addEventListener('click', () => {
       this.audioHomework4.play();
       this.questionPlane('__ cajas amarillas');
       this.answersPlane(['Unas', 'Las', 'Esas']);
