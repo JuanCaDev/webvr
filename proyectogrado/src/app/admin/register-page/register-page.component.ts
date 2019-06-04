@@ -41,9 +41,9 @@ export class RegisterPageComponent implements OnInit {
               email,
               teacher: code,
               levels: {
-                level1: {},
-                level2: {},
-                level3: {}
+                level1: { finish: false },
+                level2: { finish: false },
+                level3: { finish: false }
               }
             };
             this.db.collection('teachers', ref => ref.where(

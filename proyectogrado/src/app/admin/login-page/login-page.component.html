@@ -4,19 +4,19 @@
     <div class="card-body">
       <h5 class="card-title">Iniciar sesión</h5>
       <div class="row">
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
           <label for="email">Email</label>
           <input type="email" [(ngModel)]="email" class="form-control" id="email">
         </div>
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
           <label for="password">Contraseña</label>
           <input type="password" [(ngModel)]="password" class="form-control" id="password">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-12">
+        <div class="form-group col-12 col-md-6">
           <label for="type">Tipo de usuario</label>
-          <select class="form-control col-6" [(ngModel)]="type" id="type">
+          <select class="form-control" [(ngModel)]="type" id="type">
             <option value="student">Estudiante</option>
             <option value="teacher">Profesor</option>
             <option value="coordinator">Coordinador</option>

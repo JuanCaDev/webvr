@@ -141,10 +141,6 @@ export class Level1Component implements OnInit {
   startLevel1(uid: string) {
     this.dataService.getOneStudent(uid).subscribe(
       (data: any) => {
-        console.log(data.levels.level1.homework1);
-        console.log(!data.levels.level1.homework1);
-        console.log(data.levels.level1.homework2);
-        console.log(!data.levels.level1.homework2);
         if (data.levels.level1.homework1 === undefined) {
           setTimeout(() => {
             console.log('Homework 1');
@@ -246,15 +242,16 @@ export class Level1Component implements OnInit {
                   level1: { homework2: 5 }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioGood.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember12.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioGood.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember12.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() =>  console.log('Respuesta de tarea guardada'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 2000);
             } else {
               console.log('Respuesta incorrecta');
               const calification = {
@@ -262,15 +259,16 @@ export class Level1Component implements OnInit {
                   level1: { homework2: 0 }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioIncorrect.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember12.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioIncorrect.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember12.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 2000);
             }
           });
         }
@@ -347,18 +345,19 @@ export class Level1Component implements OnInit {
               console.log('Respuesta correcta');
               const calification = {
                 levels: {
-                  level1: { homework4: 5 }
+                  level1: { homework4: 5, finish: true }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioGood.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember34.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioGood.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember34.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 2000);
             } else {
               console.log('Respuesta incorrecta');
               const calification = {
@@ -366,14 +365,16 @@ export class Level1Component implements OnInit {
                   level1: { homework4: 0 }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioIncorrect.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember34.play();
-                  }, 3000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioIncorrect.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember34.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 3000);
             }
           });
         }

@@ -240,15 +240,16 @@ export class Level2Component implements OnInit {
                   level2: { homework6: 5 }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioGood.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember56.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioGood.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember56.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Respuesta de tarea guardada'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 2000);
             } else {
               console.log('Respuesta incorrecta');
               const calification = {
@@ -256,15 +257,16 @@ export class Level2Component implements OnInit {
                   level2: { homework6: 0 }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioIncorrect.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember56.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioIncorrect.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember56.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 5000);
+              }, 2000);
             }
           });
         }
@@ -341,33 +343,36 @@ export class Level2Component implements OnInit {
               console.log('Respuesta correcta');
               const calification = {
                 levels: {
-                  level2: { homework8: 5 }
+                  level2: { homework8: 5, finish: true }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioGood.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember78.play();
-                    setTimeout(() => {}, 5000);
-                  }, 2000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioGood.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember78.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 7000);
+              }, 2000);
             } else {
               console.log('Respuesta incorrecta');
               const calification = {
                 levels: {
-                  level2: { homework8: 0 }
+                  level2: { homework8: 0, finish: true }
                 }
               };
-              this.dataService.saveHomework(this.studentUid, calification)
-                .then(() => {
-                  this.audioIncorrect.play();
-                  this.scene.innerHTML = '';
-                  setTimeout(() => {
-                    this.remember78.play();
-                  }, 3000);
-                }).catch(() => console.log('Error: contactar'));
+              this.audioIncorrect.play();
+              this.scene.innerHTML = '';
+              setTimeout(() => {
+                this.remember78.play();
+                setTimeout(() => {
+                  this.dataService.saveHomework(this.studentUid, calification)
+                    .then(() => console.log('Tarea guardada correctamente'))
+                    .catch(() => console.log('Error: contactar'));
+                }, 5000);
+              }, 3000);
             }
           });
         }
