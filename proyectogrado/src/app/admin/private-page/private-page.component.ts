@@ -15,6 +15,7 @@ export class PrivatePageComponent implements OnInit {
   teachersUid: string[];
   teachers: Teacher[] = [];
   teacherSelected: Teacher;
+  studentsLength: number;
 
   constructor(
     private authService: AuthService,
@@ -70,6 +71,7 @@ export class PrivatePageComponent implements OnInit {
 
   selectTeacher(teacher: Teacher) {
     this.teacherSelected = teacher;
+    this.studentsLength = this.teacherSelected.students.length;
     console.log(this.teacherSelected);
   }
 

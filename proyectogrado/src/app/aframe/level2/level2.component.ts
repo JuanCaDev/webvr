@@ -120,10 +120,10 @@ export class Level2Component implements OnInit {
     // tslint:disable-next-line:no-unused-expression
     const promise = new Promise ((res, rej) => {
       if (
-        levels.level2.homework1 !== undefined &&
-        levels.level2.homework2 !== undefined &&
-        levels.level2.homework3 !== undefined &&
-        levels.level2.homework4 !== undefined
+        levels.level2.homework5 !== undefined &&
+        levels.level2.homework6 !== undefined &&
+        levels.level2.homework7 !== undefined &&
+        levels.level2.homework8 !== undefined
       ) {
         this.audioMusic.pause();
         this.audioWelcome.pause();
